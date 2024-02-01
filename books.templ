@@ -1,0 +1,45 @@
+package main
+
+templ BooksTemplate(books []Book){
+	@IndexTemplate(){
+		if len(books) > 0{
+			for _, book := range books{
+			<article>
+				<a hx-get={"/books/" + book.Id }
+				hx-trigger="click"
+				hx-target="main"
+				hx-swap="innerHTML"
+				hx-push-url="true">
+					{ book.Title } - {book.Author}
+				</a>
+			</article>
+			}
+		}
+		else{
+			<h1>There are no books yet. Press add books to create one</h1>
+		}
+	}
+}
+
+templ BooksCreateFormTemplate(){
+	@IndexTemplate(){
+	<form action="/books" method="post">
+		<label for="author">Enter the name of the author
+			<input type="text" name="author" id="author" />
+		</label>
+
+		<label for="title">Enter the name of the title
+			<input type="text" name="title" id="title" />
+		</label>
+
+		<button type="submit">Submit</button>
+	</form>
+	}
+}
+
+templ BooksSingleTemplate(book *Book){
+	<article>
+		<header>{book.Author}</header>
+		{book.Title}
+	</article>
+}

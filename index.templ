@@ -1,0 +1,55 @@
+package main
+
+templ IndexTemplate(){
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bookly using GOTH - Go Templ HTMX stack</title>
+    <meta name="description"
+        content="Bookly using GOTH - Go Templ HTMX stack" />
+    <link rel="shortcut icon" href="https://picocss.com/favicon.ico" />
+
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.0-rc4/css/pico.min.css" />
+    <style type="text/css">
+        a:hover {
+         cursor:pointer;
+        }
+       </style>
+       
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="container">
+        <hgroup>
+            <h1>Bookly</h1>
+        </hgroup>
+        <nav>
+            <ul>
+                <li><a href="/">Main page</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/books/create">Add book</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main class="container">
+        { children... }
+    </main>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</body>
+
+</html>
+}
+
+templ RootTemplate(){
+    @IndexTemplate(){
+        <p>This is the main page</p>
+    }
+}
