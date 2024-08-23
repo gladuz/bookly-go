@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 )
 
 type Book struct {
@@ -22,7 +22,7 @@ var db *sql.DB
 
 func main() {
 	var err error
-	db, err = sql.Open("sqlite3", "books.db")
+	db, err = sql.Open("sqlite", "books.db")
 	if err != nil{
 		log.Fatal(err)
 	}
