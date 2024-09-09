@@ -5,6 +5,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "modernc.org/sqlite"
@@ -23,6 +24,7 @@ var db *sql.DB
 func main() {
 	var err error
 	db, err = sql.Open("sqlite", "books.db")
+	createDatabase()
 	if err != nil{
 		log.Fatal(err)
 	}
@@ -36,8 +38,25 @@ func main() {
 	router.GET("/books/:id", getBook)
 	router.POST("/books", postBooks)
 	router.GET("/", getHomePage)
+	
+	port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+	router.Run(":"+port)
+}
 
-	router.Run("localhost:8080")
+func createDatabase() error{
+	_, err := db.Exec(`CREATE TABLE IF NOT EXISTS books (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        author TEXT
+    )`)
+    if err != nil {
+        return err
+    }
+
+    return nil
 }
 
 func getCreateBooks(c *gin.Context){
